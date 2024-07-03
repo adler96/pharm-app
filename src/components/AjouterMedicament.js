@@ -51,7 +51,7 @@ function AjouterMedicament({ addMedicament, aModifier, onModifier }) {
 		} else {
 			medic = {
 				nom: curNom,
-				prix: curPrix,
+				prix: curPrix.toString(),
 				description: curDescription
 			};
 
@@ -67,10 +67,10 @@ function AjouterMedicament({ addMedicament, aModifier, onModifier }) {
   return (
     <form onSubmit={handleSubmit} >
         <input type="text" onChange={onNomChange} value={curNom != null ? curNom : ""} placeholder="Nom du Medicament" /> <br/>
-        <input type="number" onChange={onPrixChange} value={curPrix != null ? curPrix : 0} placeholder="Prix du Medicament" /> <br/>
+        <input type="number" min="0" onChange={onPrixChange} value={curPrix != null ? curPrix : 0} placeholder="Prix du Medicament" /> <br/>
         <textarea onChange={onDescriptionChange} value={curDescription != null ? curDescription : ""} placeholder="Description..."></textarea> <br/>
         
-				<input type="submit" value={ aModifier == null ? "Ajouter" : "Modifier" } />
+		<input type="submit" value={ aModifier == null ? "Ajouter" : "Modifier" } />
     </form>
   )
 }

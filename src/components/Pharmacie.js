@@ -45,7 +45,10 @@ function Pharmacie() {
 			axios.put(`http://localhost:3333/medicaments/${medic.id}`, { ...medic } )
         .then(response => {
             const newMedic = response.data;
-            setMedicaments([...medicaments, newMedic]);
+            
+            setMedicaments(prevMeds => {
+              return [ ...prevMeds.filter((med) => med.id !== newMedic.id), newMedic ];
+            });
         })
         .catch(error => console.log('MyError = '+error));	
 

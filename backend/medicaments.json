@@ -3,19 +3,19 @@
     {
       "id": "1",
       "nom": "Doliprane",
-      "prix": 1589,
-      "description": "Traitement symptomatique des douleurs d'intensite legere a moderee et/ou des etats febriles"
+      "prix": "2111",
+      "description": "Pour les Fievres et Grippes"
     },
     {
       "id": "2",
       "nom": "Fervex",
-      "prix": 2000,
+      "prix": "2000",
       "description": "Pour les Fievres et Grippes"
     },
     {
       "id": "3",
       "nom": "Efferalgan",
-      "prix": 1187,
+      "prix": "1187",
       "description": "Efferalgan pour Douleurs et Fievres"
     }
   ]
