@@ -1,57 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AjouterMedicament from './AjouterMedicament'
 import DetaillerMedicament from './DetaillerMedicament'
 import Medicament from './Medicament'
 import './pharmacie.css'
+import axios from 'axios'
 
 function Pharmacie() {
-    const [ medicaments, setMedicaments] = useState([
-        {
-            id: 1,
-            nom: "Doliprane",
-            prix: 1589,
-            description: "Traitement symptomatique des douleurs d'intensite legere a moderee et/ou des etats febriles"
-        },
-        {
-            id: 2,
-            nom: "Fervex",
-            prix: 2000,
-            description: "Pour les Fievres et Grippes"
-        },
-        {
-            id: 3,
-            nom: "Efferalgan",
-            prix: 1187,
-            description: "Efferalgan pour Douleurs et Fievres"
-        }
-    ])
+    const [ medicaments, setMedicaments] = useState([]);
+		
+    const [ isLoading, setIsLoading] = useState(true);
+    const [ error, setError ] = useState(null);
+
+		useEffect(() => {
+			axios.get('http://localhost:3333/medicaments')
+			.then(res => {
+					const medics = res.data;
+					setMedicaments(medics);
+					setIsLoading(false);
+			})
+			.catch(err => {setError(err); setIsLoading(false);})
+	}, []);
 
     const [ medicamentActif, setMedicamentActif ] = useState(null);
-		const [ currentId, setCurrentId ] = useState(4);
 		const [ enModification, setEnModification ] = useState(null);
 
     function ajouterMedicament(medic) {
-			
-			setMedicaments(prevMedics => {
-				medic = { id: currentId, ...medic };
-				return [...prevMedics, medic];
-			});
-
-			setCurrentId(prevId => prevId + 1);
-			
+			axios.post('http://localhost:3333/medicaments/', { ...medic } )
+        .then(response => {
+            const newMedic = response.data;
+            setMedicaments([...medicaments, newMedic]);
+        })
+        .catch(error => console.log('MyError = '+error));			
     }
 
 		function supprimerMedicament(id) {
-			setMedicaments(prevMedics => {
-				return prevMedics.filter((medic) => medic.id !== id);
-			})
+			axios.delete(`http://localhost:3333/medicaments/${id}`)
+        .then(res => setMedicaments( prevState => (
+            prevState.filter( medic => medic.id !== id)
+        )))
+        .catch( err => setError(error))
 		}
 
 		function modifierMedicament(medic) {
-			// mettre a jour le state
-			setMedicaments(prevMedics => {
-				return [ ...medicaments.filter(med => med.id !== medic.id), medic ];
-			});
+			axios.put(`http://localhost:3333/medicaments/${medic.id}`, { ...medic } )
+        .then(response => {
+            const newMedic = response.data;
+            setMedicaments([...medicaments, newMedic]);
+        })
+        .catch(error => console.log('MyError = '+error));	
 
 			// pas de medicament en modification
 			setEnModification(null);
