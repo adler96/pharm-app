@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
+import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
+
 
 function AjouterMedicament({ addMedicament, aModifier, onModifier }) {
 
@@ -66,11 +70,22 @@ function AjouterMedicament({ addMedicament, aModifier, onModifier }) {
   
   return (
     <form onSubmit={handleSubmit} >
-        <input type="text" onChange={onNomChange} value={curNom != null ? curNom : ""} placeholder="Nom du Medicament" /> <br/>
-        <input type="number" min="0" onChange={onPrixChange} value={curPrix != null ? curPrix : 0} placeholder="Prix du Medicament" /> <br/>
+				<Input type="text"  placeholder="Nom du Medicament" onChange={onNomChange} value={curNom != null ? curNom : ""} /> <br/>
+{/*         
+				<NumberInput
+					placeholder="Prix du Medicament"	
+					min={0}	
+					value={curPrix != null ? curPrix : 0}
+					onChange={onPrixChange}
+				/> <br/> */}
+				<NumberInput
+					aria-label="Demo number input"
+					placeholder="Type a number…"
+				/>
+
         <textarea onChange={onDescriptionChange} value={curDescription != null ? curDescription : ""} placeholder="Description..."></textarea> <br/>
         
-		<input type="submit" value={ aModifier == null ? "Ajouter" : "Modifier" } />
+				<Button type="submit" variant="contained">{ aModifier == null ? "Ajouter" : "Modifier" }</Button>
     </form>
   )
 }
