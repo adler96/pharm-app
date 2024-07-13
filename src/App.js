@@ -1,13 +1,13 @@
-import './App.css';
+import { Box } from '@mui/material';
 import './components/Pharmacie';
 import Pharmacie from './components/Pharmacie';
 
 function App() {
   return (
-    <div className="app">
+    <Box display="flex" flexDirection="column" gap={2}>
       <h1>PharmApp</h1>
       <Pharmacie />
-    </div>
+    </Box>
   );
 }
 

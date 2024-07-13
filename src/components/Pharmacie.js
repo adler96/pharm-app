@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import AjouterMedicament from './AjouterMedicament'
 import DetaillerMedicament from './DetaillerMedicament'
 import Medicament from './Medicament'
-import './pharmacie.css'
 import axios from 'axios'
+import { Box } from '@mui/material'
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment'
+import { Search } from '@mui/icons-material'
 
 function Pharmacie() {
     const [ medicaments, setMedicaments] = useState([]);
@@ -112,10 +115,23 @@ function Pharmacie() {
     }
 
   return (
-    <div className='pharmacie'>
-      <div className="search">
-        <input type="text" placeholder="Rechercher un Medicament..." onChange={handleSearchChange} />
-      </div>
+    <div>
+      <Box>
+        <TextField 
+					type="text"  
+					label="Rechercher..." 
+					onChange={handleSearchChange} 
+					variant="standard"
+					margin="normal"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+			/>
+      </Box>
       <AjouterMedicament addMedicament={ajouterMedicament} aModifier={ enModification !== null ? medicamentActif : null } onModifier={modifierMedicament}  />
       { 
         medicamentActif ? 

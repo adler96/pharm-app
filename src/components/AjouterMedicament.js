@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
+import TextField from '@mui/material/TextField';
+import { Box } from '@mui/material';
 
 
 function AjouterMedicament({ addMedicament, aModifier, onModifier }) {
@@ -69,24 +69,56 @@ function AjouterMedicament({ addMedicament, aModifier, onModifier }) {
   }
   
   return (
+		<Box>
     <form onSubmit={handleSubmit} >
-				<Input type="text"  placeholder="Nom du Medicament" onChange={onNomChange} value={curNom != null ? curNom : ""} /> <br/>
-{/*         
-				<NumberInput
-					placeholder="Prix du Medicament"	
-					min={0}	
-					value={curPrix != null ? curPrix : 0}
-					onChange={onPrixChange}
-				/> <br/> */}
-				<NumberInput
-					aria-label="Demo number input"
-					placeholder="Type a number…"
+				<TextField 
+					type="text"  
+					label="Nom du Medicament" 
+					onChange={onNomChange} 
+					value={curNom != null ? curNom : ""} 
+					variant="outlined"
+					margin="normal"
+					/>
+					 <br/>
+        
+				<TextField
+							label="Prix du Medicament"
+							type="number"
+							value={curPrix != null ? curPrix : 0} 
+							onChange={onPrixChange}
+
+							InputLabelProps={{
+								shrink: true,
+							}}
+							inputProps={{ min: 0 }}
+							variant="outlined"
+							margin="normal"
+				/>
+				<br />
+
+				<TextField
+					label="Description..."
+					multiline
+					rows={4}
+					variant="outlined"
+					onChange={onDescriptionChange} 
+					value={curDescription != null ? curDescription : ""}
+					margin="normal"
 				/>
 
-        <textarea onChange={onDescriptionChange} value={curDescription != null ? curDescription : ""} placeholder="Description..."></textarea> <br/>
+				<br/>
         
-				<Button type="submit" variant="contained">{ aModifier == null ? "Ajouter" : "Modifier" }</Button>
+				<Button 
+					type="submit" 
+					variant="contained"
+					color="success"
+					margin="normal"
+				>
+						{ aModifier == null ? "Ajouter" : "Modifier" }
+				</Button>
+
     </form>
+		</Box>
   )
 }
 
